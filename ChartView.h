@@ -36,14 +36,8 @@ public:
 
         contextMenu = new QMenu(this);
         clearRectAction = new QAction("Clear Rectangle", nullptr);
-        analyzeAction = new QAction("Analyze", nullptr);
-        payeshAction = new QAction("Payesh Thuraya", nullptr);
         setCenter = new QAction("Set Center", nullptr);
         contextMenu->addAction(clearRectAction);
-        contextMenu->addSeparator();
-        contextMenu->addAction(analyzeAction);
-        contextMenu->addSeparator();
-        contextMenu->addAction(payeshAction);
         contextMenu->addSeparator();
         contextMenu->addAction(setCenter);
         contextMenu->addSeparator();
@@ -57,18 +51,7 @@ public:
             rectangle->setVisible(false);
             emit sigStopPayeshThuraya();
         });
-        connect(analyzeAction, &QAction::triggered, this, [=](bool x){
-            // emit analyze
-            //emit sigStartPayeshMonitoring();
-        });
-        connect(payeshAction, &QAction::triggered, this, [=](bool x){
-            // emit analyze
-            //qDebug() << "63";
-            if(startValue.x() < endValue.x())
-                emit sigStartPayeshMonitoring(startValue.x(), endValue.x());
-            else
-                emit sigStartPayeshMonitoring(endValue.x(), startValue.x());
-        });
+
         connect(setCenter, &QAction::triggered, this, [=](bool x){
             //contextMenu.g
             emit setCenterFromChartView((endValue.x()+ startValue.x())/2);
@@ -185,8 +168,7 @@ private:
     QGraphicsRectItem* rectangle;
     QMenu* contextMenu;
     QAction* clearRectAction;
-    QAction* analyzeAction;
-    QAction* payeshAction;
+
     QAction* setCenter;
 
 signals:
